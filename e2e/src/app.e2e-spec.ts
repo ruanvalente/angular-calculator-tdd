@@ -1,3 +1,4 @@
+import { Console } from 'node:console';
 import { browser } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 
@@ -17,7 +18,7 @@ describe('workspace-project App', () => {
     expect(page.navigateTo());
   });
 
-  it('should do the addition 2 + 2 = 4', () => {
+  it('should do the addition 2 + 2 = 4', async () => {
     page.selectedButton('2');
     browser.sleep(delay);
     page.selectedButton('+');
@@ -26,11 +27,34 @@ describe('workspace-project App', () => {
     browser.sleep(delay);
     page.selectedButton('=');
     browser.sleep(delay);
-    expect(page.selectElementByCss('.calculator-screen'));
+
+    expect(
+      await page.selectElementByCss('.calculator-screen').getAttribute('value')
+    ).toEqual('4');
     browser.sleep(delay);
   });
 
-  it('should do the subtraction 5 - 3 = 2', () => {
+  it('should do the addition 568 + 444 = 1012', async () => {
+    page.selectedButton('5');
+    page.selectedButton('6');
+    page.selectedButton('8');
+    browser.sleep(delay);
+    page.selectedButton('+');
+    browser.sleep(delay);
+    page.selectedButton('4');
+    page.selectedButton('4');
+    page.selectedButton('4');
+    page.selectedButton('=');
+    browser.sleep(delay);
+
+    expect(
+      await page.selectElementByCss('.calculator-screen').getAttribute('value')
+    ).toEqual('1012');
+
+    browser.sleep(delay);
+  });
+
+  it('should do the subtraction 5 - 3 = 2', async () => {
     page.selectedButton('5');
     browser.sleep(delay);
     page.selectedButton('-');
@@ -39,11 +63,15 @@ describe('workspace-project App', () => {
     browser.sleep(delay);
     page.selectedButton('=');
     browser.sleep(delay);
-    expect(page.selectElementByCss('.calculator-screen'));
+
+    expect(
+      await page.selectElementByCss('.calculator-screen').getAttribute('value')
+    ).toEqual('2');
+
     browser.sleep(delay);
   });
 
-  it('should do the division 10 % 2 = 5', () => {
+  it('should do the division 10 % 2 = 5', async () => {
     page.selectedButton('1');
     page.selectedButton('0');
     browser.sleep(delay);
@@ -53,11 +81,15 @@ describe('workspace-project App', () => {
     browser.sleep(delay);
     page.selectedButton('=');
     browser.sleep(delay);
-    expect(page.selectElementByCss('.calculator-screen'));
+
+    expect(
+      await page.selectElementByCss('.calculator-screen').getAttribute('value')
+    ).toEqual('5');
+
     browser.sleep(delay);
   });
 
-  it('should do the multiplication 5 * 5 = 25', () => {
+  it('should do the multiplication 5 * 5 = 25', async () => {
     page.selectedButton('5');
     browser.sleep(delay);
     page.selectedButton('*');
@@ -66,7 +98,11 @@ describe('workspace-project App', () => {
     browser.sleep(delay);
     page.selectedButton('=');
     browser.sleep(delay);
-    expect(page.selectElementByCss('.calculator-screen'));
+
+    expect(
+      await page.selectElementByCss('.calculator-screen').getAttribute('value')
+    ).toEqual('25');
+
     browser.sleep(delay);
   });
 

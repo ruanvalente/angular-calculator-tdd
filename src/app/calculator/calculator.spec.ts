@@ -1,4 +1,6 @@
 class CalculatorMock {
+  public valorSalvo: number;
+
   calculator(number1: number, number2: number, operator: string) {
     switch (operator) {
       case '+':
@@ -12,6 +14,18 @@ class CalculatorMock {
       default:
         return 'Operador não conhecido';
     }
+  }
+
+  save(valorAtual) {
+    this.valorSalvo = valorAtual;
+  }
+
+  load() {
+    return this.valorSalvo;
+  }
+
+  clearSave() {
+    this.valorSalvo = 0;
   }
 }
 
@@ -60,5 +74,21 @@ describe('CalculatorMock', () => {
     expect(calculator.calculator(number1, number2, 'lala')).toEqual(
       'Operador não conhecido'
     );
+  });
+
+  // it('should fail', () => {
+  //   expect(calculator.calculator(10, 20, '+')).toEqual(20);
+  // });
+
+  it('should return the result of two operation using save() and load()', () => {
+    // Teste Operação Soma
+    expect(calculator.calculator(10, 20, '+')).toEqual(30);
+
+    //Teste Salvar Valor
+    calculator.save(calculator.calculator(10, 20, '+'));
+    expect(calculator.load()).toEqual(30);
+
+    // Teste Operação Multiplicação com a variavel Salva
+    expect(calculator.calculator(calculator.load(), 30, '+')).toEqual(60);
   });
 });
